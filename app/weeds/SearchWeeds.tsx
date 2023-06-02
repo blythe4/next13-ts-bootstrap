@@ -21,10 +21,10 @@ export default function SearchWeeds(props: { onSearch: (data: { searchKey: strin
     return (
         <Form noValidate onSubmit={submitHandler}>
             <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="1" htmlFor="sText">
+                <Form.Label column sm="2" htmlFor="sText">
                     검색어
                 </Form.Label>
-                <Col sm="11">
+                <Col sm="10">
                     <Form.Control
                         type="text"
                         id="sText"

@@ -1,16 +1,32 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import SearchWeeds from "./SearchWeeds";
-import { Row, Col, Card, Stack } from "react-bootstrap";
+import { Container, Row, Col, Card, Stack, Image } from "react-bootstrap";
 import CustomPagination from "../component/CustomPagination";
+import WeedsDetailModal from "./WeedsDetailModal";
+import NotFound from "./not-found";
 
 export default function WeedsList(props: any) {
     const [items, setItems] = useState<Weeds[]>([]);
     const [info, setInfo] = useState<PageInfo>();
-    let query = "numOfRows=20";
+    const [show, setShow] = useState(false);
+    const [dataNo, setDataNo] = useState<string>("");
+    let query = "numOfRows=18";
+
+    const handleClose = () => {
+        setShow(false);
+        setDataNo("");
+    };
+    const handleShow = () => setShow(true);
+    const weedsDetailHandler = (id: string) => {
+        setDataNo(id);
+        handleShow();
+    };
+    const onPaging = (pageNo: number) => {
+        query += `&pageNo=${pageNo}`;
+        weedsList(query);
+    };
     const weedsList = async (query: string) => {
         const response = await fetch(`/api/weeds/list?${query}`, {
             cache: "force-cache",
@@ -35,48 +51,55 @@ export default function WeedsList(props: any) {
         weedsList(query);
     }, [query]);
     return (
-        <div>
+        <Container>
             <h1>Weeds</h1>
             <SearchWeeds onSearch={onSearch} />
-            {items && (
+            {items && items.length <= 0 ? (
+                // <NotFound />
+                <></>
+            ) : (
                 <>
-                    <Row xs={1} md={3} lg={5} xl={7} xxl={9} className="g-3">
+                    <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
                         {items.map((item, idx) => (
-                            <Col key={idx}>
-                                <Card>
-                                    <Link href={`/weeds/${item.dataNo}`}>
+                            <Col key={item.dataNo}>
+                                <Card
+                                    className="h-100"
+                                    bg={`${item.dataNo === dataNo && "danger"}`}
+                                    text={`${item.dataNo === dataNo ? "white" : "dark"}`}
+                                    onClick={() => weedsDetailHandler(item.dataNo)}
+                                >
+                                    <div>
                                         <Image
                                             className="w-100"
                                             width={250}
-                                            height={200}
-                                            src={item.imgUrl}
+                                            height={155}
+                                            src={item.imgUrl || `https://dummyimage.com/250x200/ccc/fff`}
                                             alt={item.klangNm}
                                         />
-                                        <Card.Body>
-                                            <Card.Title>{item.klangNm}</Card.Title>
-                                            <Card.Text>
-                                                <Stack>
-                                                    <strong>{item.weedsFmlNm}</strong>
-                                                    <span
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: item.scnm,
-                                                        }}
-                                                    />
-                                                </Stack>
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Link>
+                                    </div>
+                                    <Card.Body>
+                                        <Card.Title>{item.klangNm}</Card.Title>
+                                        <Stack>
+                                            <strong>{item.weedsFmlNm}</strong>
+                                            <span
+                                                dangerouslySetInnerHTML={{
+                                                    __html: item.scnm,
+                                                }}
+                                            />
+                                        </Stack>
+                                    </Card.Body>
                                 </Card>
                             </Col>
                         ))}
                     </Row>
                     {info && (
                         <div className="d-flex justify-content-center">
-                            <CustomPagination data={info} />
+                            <CustomPagination data={info} onPaging={onPaging} />
                         </div>
                     )}
+                    {dataNo && <WeedsDetailModal show={show} onHide={handleClose} dataNo={dataNo} />}
                 </>
             )}
-        </div>
+        </Container>
     );
 }

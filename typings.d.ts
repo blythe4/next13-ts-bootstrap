@@ -15,7 +15,7 @@ type Weeds = {
 
 type Weed = {
     dataNo: string; // 콘텐츠 번호(키)
-    weedsFmlNm: string; // 과명
+    wdFmlyNm: string; // 과명
     klangNm: string; // 국명
     scnm: string; // 학명
     scnmTwnm: string; // 학명-이명

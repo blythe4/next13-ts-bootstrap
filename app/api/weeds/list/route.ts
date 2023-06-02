@@ -31,8 +31,6 @@ export async function GET(
     },
     res: NextApiResponse<Result>
 ) {
-    console.log(process.env.NEXT_PUBLIC_API_KEY);
-    console.log(process.env.NEXT_PUBLIC_WEED_LIST);
     let query = `apiKey=${process.env.NEXT_PUBLIC_API_KEY}&sType=sKlangNm`;
     const param = req.nextUrl.searchParams;
     param.forEach((value, key) => {
