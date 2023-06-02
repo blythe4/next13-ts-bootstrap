@@ -6,7 +6,7 @@ import { Modal, Carousel, ListGroup, Image } from "react-bootstrap";
 export default function WeedsDetailModal(props: { show: boolean; onHide: () => void; dataNo: string }) {
     const { show, onHide, dataNo } = props;
     const [item, setItem] = useState<Weed>();
-    const weedsDetailHandler = async () => {
+    const weedsDetailHandler = async (dataNo: string) => {
         const response = await fetch(`/api/weeds/${dataNo}`, {
             cache: "force-cache",
             next: { revalidate: 60 },
@@ -24,7 +24,7 @@ export default function WeedsDetailModal(props: { show: boolean; onHide: () => v
     };
 
     useEffect(() => {
-        weedsDetailHandler();
+        weedsDetailHandler(dataNo);
     }, [dataNo]);
     return (
         <Modal show={show} onHide={onHide} size="lg">
