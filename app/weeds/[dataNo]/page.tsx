@@ -10,20 +10,20 @@ export default function WeedsDetail(props: { params: { dataNo: string } }) {
         params: { dataNo },
     } = props;
     const [item, setItem] = useState<Weed>();
-    const weedsDetailHandler = async () => {
-        const response = await fetch(`/api/weeds/${dataNo}`);
-        const data = await response.json();
-        if (data.code !== "500" && data.data) {
-            const fileNameArray = data.data.fileName.split(";");
-            const imgArray = data.data.downUrl.split(";");
-            setItem({
-                ...data.data,
-                downUrl: imgArray,
-                fileName: fileNameArray,
-            });
-        }
-    };
     useEffect(() => {
+        const weedsDetailHandler = async () => {
+            const response = await fetch(`/api/weeds/${dataNo}`);
+            const data = await response.json();
+            if (data.code !== "500" && data.data) {
+                const fileNameArray = data.data.fileName.split(";");
+                const imgArray = data.data.downUrl.split(";");
+                setItem({
+                    ...data.data,
+                    downUrl: imgArray,
+                    fileName: fileNameArray,
+                });
+            }
+        };
         weedsDetailHandler();
     }, [dataNo]);
     return (
@@ -63,7 +63,7 @@ export default function WeedsDetail(props: { params: { dataNo: string } }) {
                                     과명:
                                     <p
                                         dangerouslySetInnerHTML={{
-                                            __html: item.weedsFmlNm,
+                                            __html: item.wdFmlyNm,
                                         }}
                                     />
                                 </ListGroup.Item>

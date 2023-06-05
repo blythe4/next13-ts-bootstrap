@@ -42,7 +42,7 @@ export default function WeedsDetailModal(props: { show: boolean; onHide: () => v
                                             className="w-100"
                                             width={250}
                                             height={250}
-                                            src={url}
+                                            src={url || `https://dummyimage.com/800x400/ccc/fff`}
                                             alt={item.fileName[i]}
                                             fluid
                                         />

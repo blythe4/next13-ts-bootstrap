@@ -20,11 +20,11 @@ export default function SearchWeeds(props: { onSearch: (data: { searchKey: strin
     };
     return (
         <Form noValidate onSubmit={submitHandler}>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2" htmlFor="sText">
+            <Row className="align-items-center mb-3">
+                <Form.Label column="lg" sm="auto" htmlFor="sText">
                     검색어
                 </Form.Label>
-                <Col sm="10">
+                <Col>
                     <Form.Control
                         type="text"
                         id="sText"
@@ -33,7 +33,7 @@ export default function SearchWeeds(props: { onSearch: (data: { searchKey: strin
                         onChange={onChange}
                     />
                 </Col>
-            </Form.Group>
+            </Row>
         </Form>
     );
 }

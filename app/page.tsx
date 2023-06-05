@@ -1,8 +1,11 @@
 import React from "react";
+import { Metadata } from "next";
 
-type Props = {};
+export const metadata: Metadata = {
+    title: "Next.js",
+};
 
-function Home({}: Props) {
+export default function Home() {
     return (
         <div>
             <h1>Home</h1>
@@ -12,5 +15,3 @@ function Home({}: Props) {
         </div>
     );
 }
-
-export default Home;

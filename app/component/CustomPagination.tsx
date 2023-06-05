@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 
-export default function CustomPagination(props: { data: PageInfo; onPaging: (num: number) => void }) {
+export default function CustomPagination(props: { data: PageInfo; onPaging: (value: number) => void }) {
     const {
         data: { totalCount, numOfRows, pageNo },
         onPaging,
