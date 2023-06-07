@@ -22,7 +22,6 @@ export default function WeedsListLayout() {
         pageNo: "1",
         sText: "",
     });
-    let query = "numOfRows=18";
 
     const handleClose = useCallback(() => {
         setShow(false);

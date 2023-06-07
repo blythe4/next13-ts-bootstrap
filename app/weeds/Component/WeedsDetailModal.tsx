@@ -3,9 +3,14 @@
 import { useEffect, useState } from "react";
 import { Modal, Carousel, ListGroup, Image } from "react-bootstrap";
 
-export default function WeedsDetailModal(props: { show: boolean; onHide: () => void; dataNo: string }) {
-    const { show, onHide, dataNo } = props;
-    const [item, setItem] = useState<Weed>();
+type WeedsDetailModalProps = {
+    show: boolean;
+    onHide: () => void;
+    dataNo: string;
+};
+
+export default function WeedsDetailModal({ show, onHide, dataNo }: WeedsDetailModalProps) {
+    const [item, setItem] = useState<Weed | null>(null);
     const weedsDetailHandler = async (dataNo: string) => {
         const response = await fetch(`/api/weeds/${dataNo}`, {
             cache: "force-cache",
