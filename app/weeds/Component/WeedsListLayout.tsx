@@ -58,7 +58,6 @@ export default function WeedsListLayout() {
     useEffect(() => {
         const weedsList = async (params: Params) => {
             const queryParams = new URLSearchParams(params).toString();
-            console.log(queryParams);
             const response = await fetch(`/api/weeds/list?${queryParams}`, {
                 cache: "force-cache",
                 next: { revalidate: 60 },

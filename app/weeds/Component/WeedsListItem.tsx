@@ -1,8 +1,13 @@
 "use client";
 import { Col, Card, Stack, Image } from "react-bootstrap";
 
-export default function WeedsListItem(props: { item: Weeds; dataNo: string; onWeedsDetail: (id: string) => void }) {
-    const { item, dataNo, onWeedsDetail } = props;
+type WeedsListItemProps = {
+    item: Weeds;
+    dataNo: string;
+    onWeedsDetail: (id: string) => void;
+};
+
+export default function WeedsListItem({ item, dataNo, onWeedsDetail }: WeedsListItemProps) {
     return (
         <Col key={item.dataNo}>
             <Card

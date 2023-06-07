@@ -3,20 +3,21 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-export default function SearchWeeds(props: { onSearch: (data: { searchKey: string }) => void }) {
+interface SearchWeedsProps {
+    onSearch: (data: { searchKey: string }) => void;
+}
+
+export default function SearchWeeds({ onSearch }: SearchWeedsProps) {
     const [searchKey, setSearchKey] = useState("");
     const submitHandler = (event: React.FormEvent) => {
         event.preventDefault();
         const weedsListData = {
             searchKey: searchKey,
         };
-        props.onSearch(weedsListData);
+        onSearch(weedsListData);
     };
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {
-            target: { value },
-        } = event;
-        setSearchKey(value);
+        setSearchKey(event.target.value);
     };
     return (
         <Form noValidate onSubmit={submitHandler}>

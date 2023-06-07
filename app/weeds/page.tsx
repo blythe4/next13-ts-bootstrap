@@ -5,7 +5,7 @@ export const metadata: Metadata = {
     title: "Weeds",
 };
 
-export default function WeedsList(props: any) {
+export default function WeedsList() {
     return (
         <div className="container">
             <h1>Weeds</h1>
