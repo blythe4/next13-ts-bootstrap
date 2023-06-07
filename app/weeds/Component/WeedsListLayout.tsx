@@ -1,51 +1,77 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import WeedsListItem from "./WeedsListItem";
 import WeedsDetailModal from "./WeedsDetailModal";
 import SearchWeeds from "./SearchWeeds";
 
+type Params = {
+    numOfRows: string;
+    pageNo: string;
+    sText: string;
+};
+
 export default function WeedsListLayout() {
     const [items, setItems] = useState<Weeds[]>([]);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
     const [dataNo, setDataNo] = useState<string>("");
-    const [params, setParams] = useState<string>("numOfRows=18");
+    const [params, setParams] = useState<Params>({
+        numOfRows: "18",
+        pageNo: "1",
+        sText: "",
+    });
     let query = "numOfRows=18";
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setShow(false);
         setDataNo("");
-    };
-    const handleShow = () => setShow(true);
-    const weedsDetailHandler = (id: string) => {
-        setDataNo(id);
-        handleShow();
-    };
-    const onPaging = (event: React.ChangeEvent<unknown>, pageNo: number) => {
-        query += `&pageNo=${pageNo}`;
-        setParams(query);
-    };
+    }, []);
 
-    const onSearch = (data: { searchKey: string }) => {
-        query += `&sText=${data.searchKey}`;
-        setParams(query);
-    };
+    const handleShow = useCallback(() => {
+        setShow(true);
+    }, []);
+
+    const weedsDetailHandler = useCallback(
+        (id: string) => {
+            setDataNo(id);
+            handleShow();
+        },
+        [handleShow]
+    );
+
+    const onPaging = useCallback((event: React.ChangeEvent<unknown>, pageNo: number) => {
+        setParams((prevParams) => ({
+            ...prevParams,
+            pageNo: pageNo.toString(),
+        }));
+    }, []);
+
+    const onSearch = useCallback((data: { searchKey: string }) => {
+        setParams((prevParams) => ({
+            ...prevParams,
+            pageNo: "1",
+            sText: data.searchKey,
+        }));
+    }, []);
 
     useEffect(() => {
-        const weedsList = async (query: string) => {
-            const response = await fetch(`/api/weeds/list?${query}`, {
+        const weedsList = async (params: Params) => {
+            const queryParams = new URLSearchParams(params).toString();
+            console.log(queryParams);
+            const response = await fetch(`/api/weeds/list?${queryParams}`, {
                 cache: "force-cache",
                 next: { revalidate: 60 },
             });
             const data = await response.json();
             if (data.code !== "500") {
-                data.data.item ? setItems(data.data.item) : setItems([]);
+                const { item, numOfRows, totalCount, pageNo } = data.data;
+                setItems(item ? item : []);
                 setInfo({
-                    numOfRows: data.data.numOfRows,
-                    totalCount: data.data.totalCount,
-                    pageNo: data.data.pageNo,
+                    numOfRows,
+                    totalCount,
+                    pageNo,
                 });
             }
         };
@@ -55,7 +81,7 @@ export default function WeedsListLayout() {
     return (
         <>
             <SearchWeeds onSearch={onSearch} />
-            {items && items.length <= 0 ? (
+            {items.length <= 0 ? (
                 <p>데이터 없음.</p>
             ) : (
                 <>
@@ -68,7 +94,7 @@ export default function WeedsListLayout() {
                         <div className="d-flex justify-content-center py-4">
                             <Pagination
                                 count={Math.ceil(parseInt(info.totalCount) / parseInt(info.numOfRows))}
-                                defaultPage={parseInt(info.pageNo)}
+                                page={parseInt(info.pageNo)}
                                 shape="rounded"
                                 onChange={onPaging}
                             />
