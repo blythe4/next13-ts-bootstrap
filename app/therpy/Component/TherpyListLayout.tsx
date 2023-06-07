@@ -2,9 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
-import CommonSearch from "../../component/CommonSearch";
-import WeedsListItem from "./WeedsListItem";
-import WeedsDetailModal from "./WeedsDetailModal";
+import CommonSearch from "@/app/component/CommonSearch";
+import TherpyListItem from "./TheypyListItem";
+import TherpyModal from "@/app/api/therpy/TherpyModal";
 
 type Params = {
     numOfRows: string;
@@ -12,8 +12,8 @@ type Params = {
     sText: string;
 };
 
-export default function WeedsListLayout() {
-    const [items, setItems] = useState<Weeds[]>([]);
+export default function TherpyListLayout() {
+    const [items, setItems] = useState<Therpys[]>([]);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
     const [dataNo, setDataNo] = useState<string>("");
@@ -32,7 +32,7 @@ export default function WeedsListLayout() {
         setShow(true);
     }, []);
 
-    const weedsDetailHandler = useCallback(
+    const therpyDetailHandler = useCallback(
         (id: string) => {
             setDataNo(id);
             handleShow();
@@ -56,13 +56,14 @@ export default function WeedsListLayout() {
     }, []);
 
     useEffect(() => {
-        const weedsList = async (params: Params) => {
+        const listItems = async (params: Params) => {
             const queryParams = new URLSearchParams(params).toString();
-            const response = await fetch(`/api/weeds/list?${queryParams}`, {
+            const response = await fetch(`/api/therpy/list?${queryParams}`, {
                 cache: "force-cache",
                 next: { revalidate: 60 },
             });
             const data = await response.json();
+            console.log(data);
             if (data.code !== "500") {
                 const { item, numOfRows, totalCount, pageNo } = data.data;
                 setItems(item ? item : []);
@@ -73,7 +74,7 @@ export default function WeedsListLayout() {
                 });
             }
         };
-        weedsList(params);
+        listItems(params);
     }, [params]);
 
     return (
@@ -85,7 +86,12 @@ export default function WeedsListLayout() {
                 <>
                     <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
                         {items.map((item, idx) => (
-                            <WeedsListItem key={idx} item={item} dataNo={dataNo} onWeedsDetail={weedsDetailHandler} />
+                            <TherpyListItem
+                                key={idx}
+                                item={item}
+                                dataNo={dataNo}
+                                onTherpyDetail={therpyDetailHandler}
+                            />
                         ))}
                     </Row>
                     {info && (
@@ -98,7 +104,7 @@ export default function WeedsListLayout() {
                             />
                         </div>
                     )}
-                    {dataNo && <WeedsDetailModal show={show} onHide={handleClose} dataNo={dataNo} />}
+                    {dataNo && <TherpyModal show={show} onHide={handleClose} dataNo={dataNo} />}
                 </>
             )}
         </>

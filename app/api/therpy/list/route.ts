@@ -1,14 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import type { NextApiResponse } from "next";
 import { convertXmlToJson } from "@/app/component/ConverXmlToJson";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
  * apiKey: 인증키
  * sType: 검색조건
- *          1. sWeedsFmlNm : 과명
- *          2. sKlangNm : 국명
- *          3. sScnm : 학명
+ *          1. sCntntsSj : 명칭
+ *          2. sBneNm : 학명
+ *          3. sHbdcNm : 색약명
  * sText: 검색단어
  * pageNo: 페이징
  * numOfRows: 한 페이지에 제공할 건수
@@ -29,7 +28,7 @@ export async function GET(
     },
     res: NextApiResponse<Result>
 ) {
-    let query = `apiKey=${process.env.NEXT_PUBLIC_API_KEY}&sType=sKlangNm`;
+    let query = `apiKey=${process.env.NEXT_PUBLIC_API_KEY}&sType=sCntntsSj`;
     const param = req.nextUrl.searchParams;
     param.forEach((value, key) => {
         query += `&${key}=${value}`;
@@ -40,7 +39,7 @@ export async function GET(
     let body;
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_WEED_LIST}?${query}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_THERPY_LIST}?${query}`);
         const xmlData = await response.text();
 
         const data = await convertXmlToJson(xmlData);

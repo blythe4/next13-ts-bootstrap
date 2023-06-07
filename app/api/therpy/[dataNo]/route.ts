@@ -29,7 +29,7 @@ export async function GET(
     let body;
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_WEED_VIEW}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&dataNo=${dataNo}`
+            `${process.env.NEXT_PUBLIC_THERPY_VIEW}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&cntntsNo=${dataNo}`
         );
         const xmlData = await response.text();
 
@@ -37,7 +37,7 @@ export async function GET(
 
         code = data.header.resultCode;
         message = data.header.resultMsg;
-        body = data.body.items.item;
+        body = data.body.item;
     } catch {
         code = "500";
         message = "Data를 불러오는데 실패함.";

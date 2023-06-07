@@ -3,18 +3,16 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-interface SearchWeedsProps {
+interface CommonSearchProps {
     onSearch: (data: { searchKey: string }) => void;
 }
 
-export default function SearchWeeds({ onSearch }: SearchWeedsProps) {
+export default function CommonSearch({ onSearch }: CommonSearchProps) {
     const [searchKey, setSearchKey] = useState("");
     const submitHandler = (event: React.FormEvent) => {
         event.preventDefault();
-        const weedsListData = {
-            searchKey: searchKey,
-        };
-        onSearch(weedsListData);
+        const searchData = { searchKey };
+        onSearch(searchData);
     };
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchKey(event.target.value);
