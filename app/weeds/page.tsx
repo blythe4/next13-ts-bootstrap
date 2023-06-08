@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import WeedsListLayout from "./Component/WeedsListLayout";
+import WeedsListLayout from "./component/WeedsListLayout";
 
 export const metadata: Metadata = {
     title: "잡초",

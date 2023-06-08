@@ -8,7 +8,7 @@ export default function Footer() {
                     <a href="https://www.nongsaro.go.kr/" target="_blank">
                         농사로 OpenAPI
                     </a>
-                    에서 제공되는 자료로 활용 하였습니다.
+                    를 활용하여 제작하였습니다.
                 </p>
             </footer>
         </div>

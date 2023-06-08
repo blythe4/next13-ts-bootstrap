@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Header />
-                <div className="p-4">{children}</div>
+                <div className="container py-4">{children}</div>
                 <Footer />
             </body>
         </html>
