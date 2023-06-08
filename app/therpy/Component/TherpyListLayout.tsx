@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import TherpyListItem from "./TheypyListItem";
@@ -13,6 +13,7 @@ type Params = {
 };
 
 export default function TherpyListLayout() {
+    let [pending, startTransition] = useTransition();
     const [items, setItems] = useState<Therpys[] | null>(null);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
@@ -57,21 +58,23 @@ export default function TherpyListLayout() {
 
     useEffect(() => {
         const listItems = async (params: Params) => {
-            const queryParams = new URLSearchParams(params).toString();
-            const response = await fetch(`/api/therpy/list?${queryParams}`, {
-                cache: "force-cache",
-                next: { revalidate: 60 },
-            });
-            const data = await response.json();
-            if (data.code !== "500") {
-                const { item, numOfRows, totalCount, pageNo } = data.data;
-                setItems(item ? item : []);
-                setInfo({
-                    numOfRows,
-                    totalCount,
-                    pageNo,
+            startTransition(async () => {
+                const queryParams = new URLSearchParams(params).toString();
+                const response = await fetch(`/api/therpy/list?${queryParams}`, {
+                    cache: "force-cache",
+                    next: { revalidate: 60 },
                 });
-            }
+                const data = await response.json();
+                if (data.code !== "500") {
+                    const { item, numOfRows, totalCount, pageNo } = data.data;
+                    setItems(item ? item : []);
+                    setInfo({
+                        numOfRows,
+                        totalCount,
+                        pageNo,
+                    });
+                }
+            });
         };
         listItems(params);
     }, [params]);
@@ -79,6 +82,7 @@ export default function TherpyListLayout() {
     return (
         <>
             <CommonSearch onSearch={onSearch} />
+            {pending && !items && <p>Loadding .....</p>}
             {items &&
                 (items.length <= 0 ? (
                     <p>데이터 없음.</p>
