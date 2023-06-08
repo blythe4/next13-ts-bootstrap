@@ -35,24 +35,27 @@ export default function TherpyModal({ show, onHide, dataNo }: TherpyModalProps) 
                 {item && (
                     <>
                         <Carousel>
-                            {item.imgUrl1 && (
-                                <Carousel.Item>
-                                    <Image
-                                        className="w-100"
-                                        width={250}
-                                        height={250}
-                                        src={item.imgUrl1 || `https://dummyimage.com/800x400/ccc/fff`}
-                                        alt={item.cntntsSj}
-                                        fluid
-                                    />
-                                </Carousel.Item>
-                            )}
+                            {[item.imgUrl1, item.imgUrl2, item.imgUrl3, item.imgUrl4, item.imgUrl5, item.imgUrl6]
+                                .filter(Boolean)
+                                .map((imgUrl, index) => (
+                                    <Carousel.Item key={index}>
+                                        <Image
+                                            className="w-100"
+                                            width={400}
+                                            height={400}
+                                            src={imgUrl || `https://dummyimage.com/800x400/ccc/fff`}
+                                            alt={item.cntntsSj}
+                                        />
+                                    </Carousel.Item>
+                                ))}
                         </Carousel>
                         <ListGroup as="ul" className="py-3">
                             <ListGroup.Item as="li">
                                 {item.cntntsSj} / {item.bneNm} / {item.hbdcNm}
                             </ListGroup.Item>
-                            <ListGroup.Item as="li">이용부위: {item.useeRegn}</ListGroup.Item>
+                            <ListGroup.Item as="li">
+                                이용부위: <p>{item.useeRegn}</p>
+                            </ListGroup.Item>
                             <ListGroup.Item as="li">
                                 형태:{" "}
                                 <p

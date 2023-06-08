@@ -28,6 +28,7 @@ export async function GET(
     },
     res: NextApiResponse<Result>
 ) {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     let query = `apiKey=${process.env.NEXT_PUBLIC_API_KEY}&sType=sCntntsSj`;
     const param = req.nextUrl.searchParams;
     param.forEach((value, key) => {

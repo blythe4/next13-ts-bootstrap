@@ -13,7 +13,7 @@ type Params = {
 };
 
 export default function WeedsListLayout() {
-    const [items, setItems] = useState<Weeds[]>([]);
+    const [items, setItems] = useState<Weeds[] | null>(null);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
     const [dataNo, setDataNo] = useState<string>("");
@@ -79,28 +79,34 @@ export default function WeedsListLayout() {
     return (
         <>
             <CommonSearch onSearch={onSearch} />
-            {items.length <= 0 ? (
-                <p>데이터 없음.</p>
-            ) : (
-                <>
-                    <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
-                        {items.map((item, idx) => (
-                            <WeedsListItem key={idx} item={item} dataNo={dataNo} onWeedsDetail={weedsDetailHandler} />
-                        ))}
-                    </Row>
-                    {info && (
-                        <div className="d-flex justify-content-center py-4">
-                            <Pagination
-                                count={Math.ceil(parseInt(info.totalCount) / parseInt(info.numOfRows))}
-                                page={parseInt(info.pageNo)}
-                                shape="rounded"
-                                onChange={onPaging}
-                            />
-                        </div>
-                    )}
-                    {dataNo && <WeedsDetailModal show={show} onHide={handleClose} dataNo={dataNo} />}
-                </>
-            )}
+            {items &&
+                (items.length <= 0 ? (
+                    <p>데이터 없음.</p>
+                ) : (
+                    <>
+                        <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
+                            {items.map((item, idx) => (
+                                <WeedsListItem
+                                    key={idx}
+                                    item={item}
+                                    dataNo={dataNo}
+                                    onWeedsDetail={weedsDetailHandler}
+                                />
+                            ))}
+                        </Row>
+                        {info && (
+                            <div className="d-flex justify-content-center py-4">
+                                <Pagination
+                                    count={Math.ceil(parseInt(info.totalCount) / parseInt(info.numOfRows))}
+                                    page={parseInt(info.pageNo)}
+                                    shape="rounded"
+                                    onChange={onPaging}
+                                />
+                            </div>
+                        )}
+                        {dataNo && <WeedsDetailModal show={show} onHide={handleClose} dataNo={dataNo} />}
+                    </>
+                ))}
         </>
     );
 }

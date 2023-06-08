@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
+import Footer from "./Footer";
 import Header from "./Header";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body>
                 <Header />
                 <div className="p-4">{children}</div>
+                <Footer />
             </body>
         </html>
     );

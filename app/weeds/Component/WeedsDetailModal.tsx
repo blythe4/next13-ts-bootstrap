@@ -45,11 +45,10 @@ export default function WeedsDetailModal({ show, onHide, dataNo }: WeedsDetailMo
                                     <Carousel.Item key={i}>
                                         <Image
                                             className="w-100"
-                                            width={250}
-                                            height={250}
+                                            width={500}
+                                            height={500}
                                             src={url || `https://dummyimage.com/800x400/ccc/fff`}
                                             alt={item.fileName[i]}
-                                            fluid
                                         />
                                     </Carousel.Item>
                                 ))}

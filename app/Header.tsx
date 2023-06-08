@@ -13,13 +13,13 @@ function Header({}: Props) {
                     <Nav.Link href="/">Home</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/garden">Garden</Nav.Link>
+                    <Nav.Link href="/garden">실내정원</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/therpy">Therpy</Nav.Link>
+                    <Nav.Link href="/therpy">약초</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/weeds">Weeds</Nav.Link>
+                    <Nav.Link href="/weeds">잡초</Nav.Link>
                 </Nav.Item>
             </Nav>
         </Container>

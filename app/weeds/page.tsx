@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import WeedsListLayout from "./Component/WeedsListLayout";
 
 export const metadata: Metadata = {
-    title: "Weeds",
+    title: "잡초",
 };
 
 export default function WeedsList() {
     return (
         <div className="container">
-            <h1>Weeds</h1>
+            <h1>잡초</h1>
             <WeedsListLayout />
         </div>
     );
