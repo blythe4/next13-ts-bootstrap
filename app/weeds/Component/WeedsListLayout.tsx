@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
-import CommonSearch from "../../component/CommonSearch";
+import CommonSearch from "@/app/component/CommonSearch";
 import WeedsListItem from "./WeedsListItem";
 import WeedsDetailModal from "./WeedsDetailModal";
 

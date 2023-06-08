@@ -2,9 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
-import CommonSearch from "@/app/component/CommonSearch";
 import TherpyListItem from "./TheypyListItem";
 import TherpyModal from "@/app/therpy/component/TherpyModal";
+import CommonSearch from "@/app/component/CommonSearch";
 
 type Params = {
     numOfRows: string;

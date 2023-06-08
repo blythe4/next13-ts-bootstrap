@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
-import Footer from "./Footer";
-import Header from "./Header";
+import Header from "./component/layout/Header";
+import Footer from "./component/layout/Footer";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
