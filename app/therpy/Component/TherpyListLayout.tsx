@@ -4,7 +4,7 @@ import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import CommonSearch from "@/app/component/CommonSearch";
 import TherpyListItem from "./TheypyListItem";
-import TherpyModal from "@/app/therpy/Component/TherpyModal";
+import TherpyModal from "@/app/therpy/component/TherpyModal";
 
 type Params = {
     numOfRows: string;
