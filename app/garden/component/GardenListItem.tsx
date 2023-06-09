@@ -1,0 +1,36 @@
+"use client";
+import { Col, Card, Stack, Image } from "react-bootstrap";
+
+type GardenListItemProps = {
+    item: Gardens;
+    dataNo: string;
+    onGardenDetail: (id: string) => void;
+};
+
+export default function GardenListItem({ item, dataNo, onGardenDetail }: GardenListItemProps) {
+    const thumbFile = item.rtnThumbFileUrl.split("|")[0];
+    const thumbFileNm = item.rtnThumbFileNm.split("|")[0];
+    return (
+        <Col key={item.cntntsNo}>
+            <Card
+                className="h-100"
+                bg={`${item.cntntsNo === dataNo && "danger"}`}
+                text={`${item.cntntsNo === dataNo ? "white" : "dark"}`}
+                onClick={() => onGardenDetail(item.cntntsNo)}
+            >
+                <div>
+                    <Image
+                        className="w-100"
+                        width={250}
+                        height={155}
+                        src={thumbFile || `https://dummyimage.com/250x200/ccc/fff`}
+                        alt={thumbFileNm}
+                    />
+                </div>
+                <Card.Body>
+                    <Card.Title>{item.cntntsSj}</Card.Title>
+                </Card.Body>
+            </Card>
+        </Col>
+    );
+}

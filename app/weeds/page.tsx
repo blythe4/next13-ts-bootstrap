@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function WeedsList() {
     return (
-        <div className="container">
+        <div>
             <h1>잡초</h1>
             <WeedsListLayout />
         </div>

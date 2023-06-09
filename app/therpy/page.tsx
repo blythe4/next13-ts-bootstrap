@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function TherpyList() {
     return (
-        <div className="container">
+        <div>
             <h1>약초</h1>
             <TherpyListLayout />
         </div>
