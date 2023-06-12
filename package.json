@@ -39,5 +39,5 @@
         "@types/styled-components": "^5.1.26",
         "@types/xml2js": "^0.4.11"
     },
-    "homepage": "https://blythe4.github.io/nwitter"
+    "homepage": "https://blythe4.github.io/next13-ts-bootstrap"
 }
