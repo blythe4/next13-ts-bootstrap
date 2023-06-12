@@ -2,6 +2,7 @@
 const nextConfig = {
     basePath: "/next13-ts-bootstrap",
     assetPrefix: process.env.NODE_ENV === "production" ? "https://blythe4.github.io/next13-ts-bootstrap" : "",
+    output: "export",
     experimental: {
         appDir: true,
         serverActions: true,
