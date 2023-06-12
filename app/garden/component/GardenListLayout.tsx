@@ -1,9 +1,11 @@
 "use client";
 import { useCallback, useEffect, useState, useTransition } from "react";
-import { Row } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import GardenSearch from "./GardenSearch";
 import GardenListItem from "./GardenListItem";
+import styled from "styled-components";
+import GardenModal from "./GardenModal";
 
 type Params = {
     numOfRows: string;
@@ -28,6 +30,7 @@ export default function GardenListLayout() {
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
     const [dataNo, setDataNo] = useState<string>("");
+    const [dataName, setDataNanme] = useState<string>("");
     const [params, setParams] = useState<Params>({
         numOfRows: "18",
         pageNo: "1",
@@ -55,8 +58,9 @@ export default function GardenListLayout() {
     }, []);
 
     const gardenDetailHandler = useCallback(
-        (id: string) => {
+        (id: string, name: string) => {
             setDataNo(id);
+            setDataNanme(name);
             handleShow();
         },
         [handleShow]
@@ -109,16 +113,21 @@ export default function GardenListLayout() {
             });
         };
         listItems(params);
-        console.log(params);
     }, [params]);
 
     return (
         <>
             <GardenSearch onSearch={onSearch} />
-            {pending && !items && <p>Loadding .....</p>}
+            {pending && !items && (
+                <Nodata>
+                    <Spinner animation="border" variant="primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </Nodata>
+            )}
             {items &&
                 (items.length <= 0 ? (
-                    <p>데이터 없음.</p>
+                    <Nodata className="fs-1 py-5">데이터 없음.</Nodata>
                 ) : (
                     <>
                         <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
@@ -141,9 +150,13 @@ export default function GardenListLayout() {
                                 />
                             </div>
                         )}
-                        {/* {dataNo && <TherpyModal show={show} onHide={handleClose} dataNo={dataNo} />} */}
+                        {dataNo && <GardenModal show={show} onHide={handleClose} dataNo={dataNo} dataName={dataName} />}
                     </>
                 ))}
         </>
     );
 }
+
+const Nodata = styled.div`
+    text-align: center;
+`;

@@ -6,7 +6,9 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "@emotion/react": "^11.11.0",
@@ -22,15 +24,20 @@
         "bootstrap": "^5.3.0",
         "eslint": "8.41.0",
         "eslint-config-next": "13.4.4",
+        "firebase": "^9.22.2",
+        "gh-pages": "^5.0.0",
         "next": "13.4.4",
         "react": "18.2.0",
         "react-bootstrap": "^2.7.4",
         "react-dom": "18.2.0",
+        "styled-components": "^6.0.0-rc.3",
         "typescript": "5.0.4",
         "xml-js": "^1.6.11",
         "xml2js": "^0.6.0"
     },
     "devDependencies": {
+        "@types/styled-components": "^5.1.26",
         "@types/xml2js": "^0.4.11"
-    }
+    },
+    "homepage": "https://blythe4.github.io/nwitter"
 }

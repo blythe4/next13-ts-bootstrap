@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import FormGroupCheckbox from "./GardenFormGroup";
 
 interface GardenSearchProps {
     onSearch: (formData: SearchFormData) => void;
@@ -157,142 +158,68 @@ export default function GardenSearch({ onSearch }: GardenSearchProps) {
                     </Button>
                 </Col>
             </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    광도요구
-                </Form.Label>
-                {lightChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="lightChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    생육형태
-                </Form.Label>
-                {grwhstleChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="grwhstleChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    잎색
-                </Form.Label>
-                {lefcolrChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="lefcolrChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    잎무늬
-                </Form.Label>
-                {lefmrkChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="lefmrkChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    꽃색
-                </Form.Label>
-                {flclrChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="flclrChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    열매색
-                </Form.Label>
-                {fmldecolrChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="fmldecolrChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    꽃피는 계절
-                </Form.Label>
-                {ignSeasonChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="ignSeasonChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            <Row xs="auto" className="align-items-center">
-                <Form.Label column="lg" sm="auto">
-                    겨울 최저온도
-                </Form.Label>
-                {winterLwetChkValOptions.map((option) => (
-                    <Col key={option.value}>
-                        <Form.Check
-                            type="checkbox"
-                            name="winterLwetChkVal"
-                            id={option.value}
-                            label={option.label}
-                            value={option.value}
-                            onChange={onChange}
-                        />
-                    </Col>
-                ))}
-            </Row>
+            <FormGroupCheckbox
+                type="checkbox"
+                label="광도요구"
+                name="lightChkVal"
+                options={lightChkValOptions}
+                onChange={onChange}
+            />
+            <FormGroupCheckbox
+                type="checkbox"
+                label="생육형태"
+                name="grwhstleChkVal"
+                options={grwhstleChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="잎색"
+                name="lefcolrChkVal"
+                options={lefcolrChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="잎무늬"
+                name="lefmrkChkVal"
+                options={lefmrkChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="꽃색"
+                name="flclrChkVal"
+                options={flclrChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="열매색"
+                name="fmldecolrChkVal"
+                options={fmldecolrChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="꽃피는 계절"
+                name="ignSeasonChkVal"
+                options={ignSeasonChkValOptions}
+                onChange={onChange}
+            />
+
+            <FormGroupCheckbox
+                type="checkbox"
+                label="겨울 최저온도"
+                name="winterLwetChkVal"
+                options={winterLwetChkValOptions}
+                onChange={onChange}
+            />
             {/* <Row xs="auto" className="align-items-center">
                 <Form.Label column="lg" sm="auto">
                     가격대

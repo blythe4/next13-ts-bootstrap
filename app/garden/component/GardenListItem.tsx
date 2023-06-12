@@ -4,7 +4,7 @@ import { Col, Card, Stack, Image } from "react-bootstrap";
 type GardenListItemProps = {
     item: Gardens;
     dataNo: string;
-    onGardenDetail: (id: string) => void;
+    onGardenDetail: (id: string, name: string) => void;
 };
 
 export default function GardenListItem({ item, dataNo, onGardenDetail }: GardenListItemProps) {
@@ -16,7 +16,7 @@ export default function GardenListItem({ item, dataNo, onGardenDetail }: GardenL
                 className="h-100"
                 bg={`${item.cntntsNo === dataNo && "danger"}`}
                 text={`${item.cntntsNo === dataNo ? "white" : "dark"}`}
-                onClick={() => onGardenDetail(item.cntntsNo)}
+                onClick={() => onGardenDetail(item.cntntsNo, item.cntntsSj)}
             >
                 <div>
                     <Image
