@@ -8,8 +8,8 @@ type GardenListItemProps = {
 };
 
 export default function GardenListItem({ item, dataNo, onGardenDetail }: GardenListItemProps) {
-    const thumbFile = item.rtnThumbFileUrl.split("|")[0];
-    const thumbFileNm = item.rtnThumbFileNm.split("|")[0];
+    const thumbFile = item.rtnFileUrl.split("|")[0];
+    const thumbFileNm = item.rtnImageDc.split("|")[0];
     return (
         <Col key={item.cntntsNo}>
             <Card

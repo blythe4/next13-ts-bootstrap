@@ -127,7 +127,7 @@ export default function GardenListLayout() {
                     <Nodata>데이터 없음.</Nodata>
                 ) : (
                     <>
-                        <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
+                        <Row xs={2} md={3} lg={5} xl={6} className="g-3">
                             {items.map((item, idx) => (
                                 <GardenListItem
                                     key={idx}
