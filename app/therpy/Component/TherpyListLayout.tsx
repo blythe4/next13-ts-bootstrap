@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import TherpyListItem from "./TheypyListItem";
-import TherpyModal from "@/app/therpy/component/TherpyModal";
+import TherpyModal from "@/app/therpy/Component/TherpyModal";
 import CommonSearch from "@/app/component/CommonSearch";
 
 type Params = {

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import TherpyListLayout from "./component/TherpyListLayout";
+import TherpyListLayout from "./Component/TherpyListLayout";
 
 export const metadata: Metadata = {
     title: "약초",
