@@ -6,9 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "predeploy": "npm run build",
-        "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
+        "lint": "next lint"
     },
     "dependencies": {
         "@emotion/react": "^11.11.0",
@@ -25,7 +23,6 @@
         "eslint": "8.41.0",
         "eslint-config-next": "13.4.4",
         "firebase": "^9.22.2",
-        "gh-pages": "^5.0.0",
         "next": "13.4.4",
         "react": "18.2.0",
         "react-bootstrap": "^2.7.4",
@@ -38,6 +35,5 @@
     "devDependencies": {
         "@types/styled-components": "^5.1.26",
         "@types/xml2js": "^0.4.11"
-    },
-    "homepage": "https://blythe4.github.io/next13-ts-bootstrap"
+    }
 }
