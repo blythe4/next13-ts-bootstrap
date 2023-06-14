@@ -1,11 +1,12 @@
 "use client";
 import { useCallback, useEffect, useState, useTransition } from "react";
-import { Row, Spinner } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import GardenSearch from "./GardenSearch";
 import GardenListItem from "./GardenListItem";
-import styled from "styled-components";
 import GardenModal from "./GardenModal";
+import CustomLoading from "@/app/component/CustomLoading";
+import { Nodata } from "@/app/util/styled";
 
 type Params = {
     numOfRows: string;
@@ -109,6 +110,8 @@ export default function GardenListLayout() {
                         totalCount,
                         pageNo,
                     });
+                } else {
+                    setItems([]);
                 }
             });
         };
@@ -118,16 +121,10 @@ export default function GardenListLayout() {
     return (
         <>
             <GardenSearch onSearch={onSearch} />
-            {pending && !items && (
-                <Nodata>
-                    <Spinner animation="border" variant="primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </Nodata>
-            )}
+            {pending && !items && <CustomLoading />}
             {items &&
                 (items.length <= 0 ? (
-                    <Nodata className="fs-1 py-5">데이터 없음.</Nodata>
+                    <Nodata>데이터 없음.</Nodata>
                 ) : (
                     <>
                         <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
@@ -156,7 +153,3 @@ export default function GardenListLayout() {
         </>
     );
 }
-
-const Nodata = styled.div`
-    text-align: center;
-`;

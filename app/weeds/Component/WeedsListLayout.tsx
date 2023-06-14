@@ -3,8 +3,10 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import CommonSearch from "@/app/component/CommonSearch";
-import WeedsListItem from "./WeedsListItem";
+import CustomLoading from "@/app/component/CustomLoading";
 import WeedsDetailModal from "./WeedsDetailModal";
+import WeedsListItem from "./WeedsListItem";
+import { Nodata } from "@/app/util/styled";
 
 type Params = {
     numOfRows: string;
@@ -73,6 +75,8 @@ export default function WeedsListLayout() {
                         totalCount,
                         pageNo,
                     });
+                } else {
+                    setItems([]);
                 }
             });
         };
@@ -82,10 +86,10 @@ export default function WeedsListLayout() {
     return (
         <>
             <CommonSearch onSearch={onSearch} />
-            {pending && !items && <p>Loading...</p>}
+            {pending && !items && <CustomLoading />}
             {items &&
                 (items.length <= 0 ? (
-                    <p>데이터 없음.</p>
+                    <Nodata>데이터 없음.</Nodata>
                 ) : (
                     <>
                         <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
