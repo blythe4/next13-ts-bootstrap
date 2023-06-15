@@ -1,5 +1,5 @@
-import type { NextApiResponse } from "next";
 import { convertXmlToJson } from "@/app/component/ConverXmlToJson";
+import { fetchWithTimeout } from "@/app/util/util";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -13,31 +13,39 @@ type Result = {
     data?: any;
 };
 
-export async function GET(
-    req: NextRequest,
-    {
-        params,
-    }: {
-        params: { dataNo: string };
-    },
-    res: NextApiResponse<Result>
-) {
+export async function GET(req: NextRequest, res: NextResponse, { params }: { params: { dataNo: string } }) {
     const dataNo = params.dataNo;
 
     let code = "";
     let message = "";
     let body;
     try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_WEED_VIEW}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&dataNo=${dataNo}`
-        );
-        const xmlData = await response.text();
+        const url = `${process.env.NEXT_PUBLIC_WEED_VIEW}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&dataNo=${dataNo}`;
 
-        const data = await convertXmlToJson(xmlData);
+        await fetchWithTimeout(url, 5000)
+            .then((response) => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    code = "500";
+                    message = "Data를 불러오는데 실패함.";
+                    throw new Error("Request failed.");
+                }
+            })
+            .then(async (response) => {
+                const xmlData = await response.text();
 
-        code = data.header.resultCode;
-        message = data.header.resultMsg;
-        body = data.body.items.item;
+                const data = await convertXmlToJson(xmlData);
+
+                code = data.header.resultCode;
+                message = data.header.resultMsg;
+                body = data.body.items.item;
+            })
+            .catch((error) => {
+                code = "300";
+                message = "Timeout...";
+                console.log(error);
+            });
     } catch {
         code = "500";
         message = "Data를 불러오는데 실패함.";

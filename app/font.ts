@@ -1,4 +1,9 @@
-import { Gamja_Flower, Noto_Serif_KR, Noto_Sans_KR } from "next/font/google";
+import { Sunflower, Gamja_Flower, Noto_Serif_KR, Noto_Sans_KR } from "next/font/google";
+
+const sun = Sunflower({
+    weight: ["300", "500", "700"],
+    subsets: ["latin"],
+});
 
 const gamja = Gamja_Flower({
     weight: "400",
@@ -15,4 +20,4 @@ const notoSans = Noto_Sans_KR({
     subsets: ["latin"],
 });
 
-export { gamja, notoSerif, notoSans };
+export { sun, gamja, notoSerif, notoSans };
