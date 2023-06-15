@@ -1,5 +1,5 @@
 "use client";
-import { Col, Card, Stack, Image } from "react-bootstrap";
+import { Col, Card, Image } from "react-bootstrap";
 
 type TherpyListItemProps = {
     item: Therpys;
@@ -11,7 +11,7 @@ export default function TherpyListItem({ item, dataNo, onTherpyDetail }: TherpyL
     return (
         <Col key={item.cntntsNo}>
             <Card
-                className="h-100"
+                className="h-100 link"
                 bg={`${item.cntntsNo === dataNo && "danger"}`}
                 text={`${item.cntntsNo === dataNo ? "white" : "dark"}`}
                 onClick={() => onTherpyDetail(item.cntntsNo)}
@@ -27,14 +27,7 @@ export default function TherpyListItem({ item, dataNo, onTherpyDetail }: TherpyL
                 </div>
                 <Card.Body>
                     <Card.Title>{item.cntntsSj}</Card.Title>
-                    <Stack>
-                        <strong>{item.bneNm}</strong>
-                        <span
-                            dangerouslySetInnerHTML={{
-                                __html: item.hbdcNm,
-                            }}
-                        />
-                    </Stack>
+                    <Card.Text>{item.bneNm}</Card.Text>
                 </Card.Body>
             </Card>
         </Col>

@@ -1,5 +1,5 @@
 "use client";
-import { Col, Card, Stack, Image } from "react-bootstrap";
+import { Col, Card, Image } from "react-bootstrap";
 
 type WeedsListItemProps = {
     item: Weeds;
@@ -11,7 +11,7 @@ export default function WeedsListItem({ item, dataNo, onWeedsDetail }: WeedsList
     return (
         <Col key={item.dataNo}>
             <Card
-                className="h-100"
+                className="h-100 link"
                 bg={`${item.dataNo === dataNo && "danger"}`}
                 text={`${item.dataNo === dataNo ? "white" : "dark"}`}
                 onClick={() => onWeedsDetail(item.dataNo)}
@@ -27,14 +27,7 @@ export default function WeedsListItem({ item, dataNo, onWeedsDetail }: WeedsList
                 </div>
                 <Card.Body>
                     <Card.Title>{item.klangNm}</Card.Title>
-                    <Stack>
-                        <strong>{item.weedsFmlNm}</strong>
-                        <span
-                            dangerouslySetInnerHTML={{
-                                __html: item.scnm,
-                            }}
-                        />
-                    </Stack>
+                    <Card.Text>{item.weedsFmlNm}</Card.Text>
                 </Card.Body>
             </Card>
         </Col>

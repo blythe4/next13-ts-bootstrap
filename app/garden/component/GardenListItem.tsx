@@ -1,5 +1,5 @@
 "use client";
-import { Col, Card, Stack, Image } from "react-bootstrap";
+import { Col, Card, Image } from "react-bootstrap";
 
 type GardenListItemProps = {
     item: Gardens;
@@ -13,7 +13,7 @@ export default function GardenListItem({ item, dataNo, onGardenDetail }: GardenL
     return (
         <Col key={item.cntntsNo}>
             <Card
-                className="h-100"
+                className="h-100 link"
                 bg={`${item.cntntsNo === dataNo && "danger"}`}
                 text={`${item.cntntsNo === dataNo ? "white" : "dark"}`}
                 onClick={() => onGardenDetail(item.cntntsNo, item.cntntsSj)}
