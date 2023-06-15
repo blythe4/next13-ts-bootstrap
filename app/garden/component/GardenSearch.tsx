@@ -141,13 +141,13 @@ export default function GardenSearch({ onSearch }: GardenSearchProps) {
         <Form noValidate onSubmit={submitHandler} className="mb-3">
             <Row className="align-items-center">
                 <Col sm="auto">
-                    <Form.Label column="lg">검색어</Form.Label>
+                    <Form.Label column="lg">식물명</Form.Label>
                 </Col>
                 <Col>
                     <Form.Control
                         type="text"
                         name="sText"
-                        placeholder="검색어를 입력하세요."
+                        placeholder="식물명을 입력하세요."
                         value={formData.sText}
                         onChange={onChange}
                     />

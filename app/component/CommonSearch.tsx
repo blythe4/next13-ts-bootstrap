@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
 interface CommonSearchProps {
+    label: string;
     onSearch: (data: { searchKey: string }) => void;
 }
 
-export default function CommonSearch({ onSearch }: CommonSearchProps) {
+export default function CommonSearch({ label, onSearch }: CommonSearchProps) {
     const [searchKey, setSearchKey] = useState("");
     const submitHandler = (event: React.FormEvent) => {
         event.preventDefault();
@@ -21,13 +22,13 @@ export default function CommonSearch({ onSearch }: CommonSearchProps) {
         <Form noValidate onSubmit={submitHandler}>
             <Row className="align-items-center mb-3">
                 <Form.Label column="lg" sm="auto" htmlFor="sText">
-                    검색어
+                    {label}
                 </Form.Label>
                 <Col>
                     <Form.Control
                         type="text"
                         id="sText"
-                        placeholder="검색어를 입력하세요."
+                        placeholder={`${label}을 입력하세요.`}
                         value={searchKey}
                         onChange={onChange}
                     />

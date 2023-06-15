@@ -1,12 +1,12 @@
 "use client";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import GardenSearch from "./GardenSearch";
 import GardenListItem from "./GardenListItem";
 import GardenModal from "./GardenModal";
-import CustomLoading from "@/app/component/CustomLoading";
 import { Nodata } from "@/app/util/styled";
+import { ListSkeleton } from "@/app/component/Skeleton";
 
 type Params = {
     numOfRows: string;
@@ -26,7 +26,6 @@ type Params = {
 };
 
 export default function GardenListLayout() {
-    let [pending, startTransition] = useTransition();
     const [items, setItems] = useState<Gardens[] | null>(null);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
@@ -51,7 +50,6 @@ export default function GardenListLayout() {
 
     const handleClose = useCallback(() => {
         setShow(false);
-        setDataNo("");
     }, []);
 
     const handleShow = useCallback(() => {
@@ -95,25 +93,23 @@ export default function GardenListLayout() {
 
     useEffect(() => {
         const listItems = async (params: Params) => {
-            startTransition(async () => {
-                const queryParams = new URLSearchParams(params).toString();
-                const response = await fetch(`/api/garden/list?${queryParams}`, {
-                    cache: "force-cache",
-                    next: { revalidate: 60 },
-                });
-                const data = await response.json();
-                if (data.code !== "500") {
-                    const { item, numOfRows, totalCount, pageNo } = data.data;
-                    setItems(item ? item : []);
-                    setInfo({
-                        numOfRows,
-                        totalCount,
-                        pageNo,
-                    });
-                } else {
-                    setItems([]);
-                }
+            const queryParams = new URLSearchParams(params).toString();
+            const response = await fetch(`/api/garden/list?${queryParams}`, {
+                cache: "force-cache",
+                next: { revalidate: 60 },
             });
+            const data = await response.json();
+            if (data.code !== "500") {
+                const { item, numOfRows, totalCount, pageNo } = data.data;
+                setItems(item ? item : []);
+                setInfo({
+                    numOfRows,
+                    totalCount,
+                    pageNo,
+                });
+            } else {
+                setItems([]);
+            }
         };
         listItems(params);
     }, [params]);
@@ -121,9 +117,8 @@ export default function GardenListLayout() {
     return (
         <>
             <GardenSearch onSearch={onSearch} />
-            {pending && !items && <CustomLoading />}
-            {items &&
-                (items.length <= 0 ? (
+            {items ? (
+                items.length <= 0 ? (
                     <Nodata>데이터 없음.</Nodata>
                 ) : (
                     <>
@@ -149,7 +144,14 @@ export default function GardenListLayout() {
                         )}
                         {dataNo && <GardenModal show={show} onHide={handleClose} dataNo={dataNo} dataName={dataName} />}
                     </>
-                ))}
+                )
+            ) : (
+                <Row xs={2} md={3} lg={5} xl={6} className="g-3">
+                    {Array.from({ length: 18 }).map((v, i) => (
+                        <ListSkeleton key={i} />
+                    ))}
+                </Row>
+            )}
         </>
     );
 }

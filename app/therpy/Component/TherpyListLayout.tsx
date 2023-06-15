@@ -1,12 +1,12 @@
 "use client";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
 import TherpyModal from "@/app/therpy/Component/TherpyModal";
 import CommonSearch from "@/app/component/CommonSearch";
-import CustomLoading from "@/app/component/CustomLoading";
 import TherpyListItem from "./TheypyListItem";
 import { Nodata } from "@/app/util/styled";
+import { ListSkeleton } from "@/app/component/Skeleton";
 
 type Params = {
     numOfRows: string;
@@ -15,7 +15,6 @@ type Params = {
 };
 
 export default function TherpyListLayout() {
-    let [pending, startTransition] = useTransition();
     const [items, setItems] = useState<Therpys[] | null>(null);
     const [info, setInfo] = useState<PageInfo>();
     const [show, setShow] = useState(false);
@@ -60,35 +59,32 @@ export default function TherpyListLayout() {
 
     useEffect(() => {
         const listItems = async (params: Params) => {
-            startTransition(async () => {
-                const queryParams = new URLSearchParams(params).toString();
-                const response = await fetch(`/api/therpy/list?${queryParams}`, {
-                    cache: "force-cache",
-                    next: { revalidate: 60 },
-                });
-                const data = await response.json();
-                if (data.code !== "500") {
-                    const { item, numOfRows, totalCount, pageNo } = data.data;
-                    setItems(item ? item : []);
-                    setInfo({
-                        numOfRows,
-                        totalCount,
-                        pageNo,
-                    });
-                } else {
-                    setItems([]);
-                }
+            const queryParams = new URLSearchParams(params).toString();
+            const response = await fetch(`/api/therpy/list?${queryParams}`, {
+                cache: "force-cache",
+                next: { revalidate: 60 },
             });
+            const data = await response.json();
+            if (data.code !== "500") {
+                const { item, numOfRows, totalCount, pageNo } = data.data;
+                setItems(item ? item : []);
+                setInfo({
+                    numOfRows,
+                    totalCount,
+                    pageNo,
+                });
+            } else {
+                setItems([]);
+            }
         };
         listItems(params);
     }, [params]);
 
     return (
         <>
-            <CommonSearch onSearch={onSearch} />
-            {pending && !items && <CustomLoading />}
-            {items &&
-                (items.length <= 0 ? (
+            <CommonSearch label="약초명" onSearch={onSearch} />
+            {items ? (
+                items.length <= 0 ? (
                     <Nodata>데이터 없음.</Nodata>
                 ) : (
                     <>
@@ -114,7 +110,14 @@ export default function TherpyListLayout() {
                         )}
                         {dataNo && <TherpyModal show={show} onHide={handleClose} dataNo={dataNo} />}
                     </>
-                ))}
+                )
+            ) : (
+                <Row xs={2} sm={2} md={3} lg={4} xxl={6} className="g-3">
+                    {Array.from({ length: 18 }).map((v, i) => (
+                        <ListSkeleton key={i} />
+                    ))}
+                </Row>
+            )}
         </>
     );
 }
