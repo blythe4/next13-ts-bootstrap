@@ -1,3 +1,4 @@
+import type { NextApiResponse } from "next";
 import { convertXmlToJson } from "@/app/component/ConverXmlToJson";
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWithTimeout } from "@/app/util/util";
@@ -6,22 +7,7 @@ import { fetchWithTimeout } from "@/app/util/util";
  * apiKey: 인증키
  * dataNo: 컨텐츠 번호
  */
-
-type Result = {
-    code: string;
-    message: string;
-    data?: any;
-};
-
-export async function GET(
-    req: NextRequest,
-    res: NextResponse,
-    {
-        params,
-    }: {
-        params: { dataNo: string };
-    }
-) {
+export async function GET(req: NextRequest, { params }: { params: { dataNo: string } }, res: NextApiResponse<Result>) {
     const dataNo = params.dataNo;
 
     let code = "";
