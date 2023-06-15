@@ -1,3 +1,9 @@
+type Result = {
+    code: string;
+    message: string;
+    data?: any;
+};
+
 type PageInfo = {
     pageNo: string;
     totalCount: string;
