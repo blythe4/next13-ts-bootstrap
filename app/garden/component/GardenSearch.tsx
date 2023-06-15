@@ -138,9 +138,9 @@ export default function GardenSearch({ onSearch }: GardenSearchProps) {
         });
     };
     return (
-        <Form noValidate onSubmit={submitHandler} className="mb-3">
+        <Form noValidate onSubmit={submitHandler} className="mb-3 bg-body-tertiary p-3 rounded">
             <Row className="align-items-center">
-                <Col sm="auto">
+                <Col xs="auto">
                     <Form.Label column="lg">식물명</Form.Label>
                 </Col>
                 <Col>
@@ -152,7 +152,7 @@ export default function GardenSearch({ onSearch }: GardenSearchProps) {
                         onChange={onChange}
                     />
                 </Col>
-                <Col sm="auto">
+                <Col xs="auto">
                     <Button variant="primary" type="submit">
                         조회
                     </Button>

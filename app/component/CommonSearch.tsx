@@ -21,7 +21,7 @@ export default function CommonSearch({ label, onSearch }: CommonSearchProps) {
     return (
         <Form noValidate onSubmit={submitHandler}>
             <Row className="align-items-center mb-3">
-                <Form.Label column="lg" sm="auto" htmlFor="sText">
+                <Form.Label column="lg" xs="auto" htmlFor="sText">
                     {label}
                 </Form.Label>
                 <Col>

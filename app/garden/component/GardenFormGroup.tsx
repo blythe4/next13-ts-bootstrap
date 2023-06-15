@@ -15,12 +15,12 @@ type FormGroupProps = {
 
 const FormGroupCheckbox = ({ type, label, name, options, onChange }: FormGroupProps) => {
     return (
-        <Row xs="auto" className="align-items-center">
-            <Form.Label column="lg" sm="auto">
-                {label}
-            </Form.Label>
+        <Row xs="auto" className="align-items-center py-1">
+            <Col xs={12} lg="auto">
+                <Form.Label column="lg">{label}</Form.Label>
+            </Col>
             {options.map((option) => (
-                <Col key={option.value}>
+                <Col key={option.value} xs="auto">
                     <Form.Check
                         type={type}
                         name={name}

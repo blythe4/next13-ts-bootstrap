@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <div className="container">
-            <footer className="d-flex justify-content-between">
+            <footer className="d-flex flex-column flex-md-row justify-content-between">
                 <p>&copy; Selina 2023.</p>
                 <p>
                     *
