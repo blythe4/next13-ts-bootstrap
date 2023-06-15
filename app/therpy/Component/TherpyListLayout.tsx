@@ -27,7 +27,6 @@ export default function TherpyListLayout() {
 
     const handleClose = useCallback(() => {
         setShow(false);
-        setDataNo("");
     }, []);
 
     const handleShow = useCallback(() => {
