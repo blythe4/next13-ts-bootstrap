@@ -56,7 +56,6 @@ const VisualWrap = styled.div`
     position: relative;
     min-height: 800px;
     padding: 24px;
-    overflow: hidden;
     &:before {
         content: "";
         display: block;
