@@ -49,6 +49,16 @@ const Cactus = styled.div`
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 55px;
+        height: 140px;
+        border-top-right-radius: 55px;
+        background-color: #0a780a;
+    }
     i {
         position: absolute;
         color: white;

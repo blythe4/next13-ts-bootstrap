@@ -68,6 +68,7 @@ export default function WeedsDetailModal({ show, onHide, dataNo }: WeedsDetailMo
                                     }}
                                 />
                                 <p
+                                    className="mb-0"
                                     dangerouslySetInnerHTML={{
                                         __html: item.stle,
                                     }}
@@ -81,6 +82,7 @@ export default function WeedsDetailModal({ show, onHide, dataNo }: WeedsDetailMo
                                 />
                                 {item.scnmTwnm && (
                                     <p
+                                        className="mb-0"
                                         dangerouslySetInnerHTML={{
                                             __html: item.scnmTwnm,
                                         }}
@@ -90,6 +92,7 @@ export default function WeedsDetailModal({ show, onHide, dataNo }: WeedsDetailMo
                             <ListGroup.Item as="li">
                                 문헌정보:{" "}
                                 <p
+                                    className="mb-0"
                                     dangerouslySetInnerHTML={{
                                         __html: item.ltrtreSjDtl,
                                     }}

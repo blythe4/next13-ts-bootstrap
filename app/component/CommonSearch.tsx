@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import { BsSearch } from "react-icons/bs";
 
 interface CommonSearchProps {
     label: string;
@@ -19,8 +20,8 @@ export default function CommonSearch({ label, onSearch }: CommonSearchProps) {
         setSearchKey(event.target.value);
     };
     return (
-        <Form noValidate onSubmit={submitHandler}>
-            <Row className="align-items-center mb-3">
+        <Form noValidate onSubmit={submitHandler} className="mb-3 bg-body-tertiary p-3 rounded">
+            <Row className="align-items-center">
                 <Form.Label column="lg" xs="auto" htmlFor="sText">
                     {label}
                 </Form.Label>
@@ -32,6 +33,11 @@ export default function CommonSearch({ label, onSearch }: CommonSearchProps) {
                         value={searchKey}
                         onChange={onChange}
                     />
+                </Col>
+                <Col xs="auto">
+                    <Button variant="success" type="submit">
+                        <BsSearch />
+                    </Button>
                 </Col>
             </Row>
         </Form>

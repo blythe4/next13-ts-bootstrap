@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import FormGroupCheckbox from "./GardenFormGroup";
+import { BsSearch } from "react-icons/bs";
 
 interface GardenSearchProps {
     onSearch: (formData: SearchFormData) => void;
@@ -153,8 +154,8 @@ export default function GardenSearch({ onSearch }: GardenSearchProps) {
                     />
                 </Col>
                 <Col xs="auto">
-                    <Button variant="primary" type="submit">
-                        조회
+                    <Button variant="success" type="submit">
+                        <BsSearch />
                     </Button>
                 </Col>
             </Row>

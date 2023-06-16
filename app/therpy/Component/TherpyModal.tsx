@@ -59,6 +59,7 @@ export default function TherpyModal({ show, onHide, dataNo }: TherpyModalProps) 
                             <ListGroup.Item as="li">
                                 형태:{" "}
                                 <p
+                                    className="mb-0"
                                     dangerouslySetInnerHTML={{
                                         __html: item.stle,
                                     }}
@@ -67,6 +68,7 @@ export default function TherpyModal({ show, onHide, dataNo }: TherpyModalProps) 
                             <ListGroup.Item as="li">
                                 민간요법:{" "}
                                 <p
+                                    className="mb-0"
                                     dangerouslySetInnerHTML={{
                                         __html: item.prvateTherpy,
                                     }}
