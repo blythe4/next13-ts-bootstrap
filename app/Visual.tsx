@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { Badge } from "react-bootstrap";
 import { TbBrandNextjs, TbBrandTypescript, TbBrandBootstrap, TbApi } from "react-icons/tb";
 import { SiStyledcomponents, SiMui } from "react-icons/si";
+import Image from "next/image";
 
 export default function Visual() {
     return (
         <VisualWrap className="d-flex flex-column">
+            <BGImage>
+                <Image src="/img/img02.jpg" alt="" fill />
+            </BGImage>
             <h2 className="mb-5">식집사 is</h2>
             <div>
                 <p>
@@ -56,17 +60,17 @@ const VisualWrap = styled.div`
     position: relative;
     min-height: 800px;
     padding: 24px;
-    &:before {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        background: url(/img/img02.jpg) 50% 100% no-repeat;
-        background-size: cover;
+    overflow: hidden;
+`;
+
+const BGImage = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    > img {
         filter: opacity(15%);
     }
 `;
